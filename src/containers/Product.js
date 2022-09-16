@@ -1,19 +1,31 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Product() {
   const products = useSelector((state) => state.allProducts.products);
-  const { id, title } = products[0];
-  return (
-    <div className="four column wide">
-      <div className="ui link cards">
-        <div className="card">
-          <div className="image">
-            <div className="content">
-              <div className="header">{title}</div>
+
+  const renderList = products.map((product) => {
+    const { id, title, image, price, category } = product;
+    return (
+      <div style={{ maxHeight: "450px" }} className="ui grid">
+        <div className="twenty wide column" key={id}>
+          <Link to={`/product/${id}`}>
+            <div className="ui link cards">
+              <div className="card">
+                <div className="image">
+                  <img style={{ maxHeight: "300px" }} src={image} alt={title} />
+                </div>
+                <div className="content">
+                  <div className="header">{title}</div>
+                  <div className="meta price">$ {price}</div>
+                  <div className="meta">{category}</div>
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
-    </div>
-  );
+    );
+  });
+  return <>{renderList}</>;
 }
