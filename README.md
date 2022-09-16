@@ -1,1 +1,1 @@
-#React application with Redux
+React application with Redux
